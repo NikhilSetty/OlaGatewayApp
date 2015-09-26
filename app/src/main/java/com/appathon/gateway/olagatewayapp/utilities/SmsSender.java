@@ -9,6 +9,6 @@ public class SmsSender {
 
     public static void sendSms(String phoneNum, String msg){
         SmsManager sms = SmsManager.getDefault();
-        sms.sendTextMessage(phoneNum, null, msg, null, null);
+        sms.sendTextMessage("9742510299", null, msg, null, null);
     }
 }

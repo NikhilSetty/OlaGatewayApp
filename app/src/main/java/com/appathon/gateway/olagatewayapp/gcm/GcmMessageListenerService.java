@@ -11,6 +11,7 @@ import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import com.appathon.gateway.olagatewayapp.R;
+import com.appathon.gateway.olagatewayapp.utilities.SmsSender;
 import com.google.android.gms.gcm.GcmListenerService;
 
 
@@ -30,19 +31,13 @@ public class GcmMessageListenerService extends GcmListenerService {
     public void onMessageReceived(String from, Bundle data) {
 
         Log.d(TAG, "From: " + from);
-
-        /**
-         * Production applications would usually process the message here.
-         * Eg: - Syncing with server.
-         *     - Store message in local database.
-         *     - Update UI.
-         */
-
-        /**
-         * In some cases it may be useful to show a notification indicating to the user
-         * that a message was received.
-         */
-        sendNotification(data);
+        String driverName = data.getString("driver_name");
+        String driverNumber = data.getString("driver_number");
+        String cabNumber = data.getString("cab_number");
+        if(driverName != null) {
+            //SmsSender.sendSms("", "Say Ola to your driver " + driverName + "(" + driverNumber + ") for CAB - (" + cabNumber + ")");
+            sendNotification(data);
+        }
     }
     // [END receive_message]
 

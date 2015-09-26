@@ -32,6 +32,8 @@ public class IncomingSmsReceiver extends BroadcastReceiver {
     // Get the object of SmsManager
     final SmsManager sms = SmsManager.getDefault();
 
+    public static RequestModel requestModel;
+
     public void onReceive(Context context, Intent intent) {
 
         // Retrieves a map of extended data from the intent.
@@ -67,8 +69,11 @@ public class IncomingSmsReceiver extends BroadcastReceiver {
                                 request.Counter = items.get(6);
                                 Log.d("SERVICE", "recieved items - " + items.get(0) + "," + items.get(1) + "," + items.get(2) + "," + items.get(3) + ",");
 
+                                requestModel = new RequestModel();
+                                requestModel = request;
+
                                 PostToServer post = new PostToServer();
-                                post.execute("");
+                                post.execute("http://10.20.242.79/BookingServer/Home/Book");
                             } else {
                                 Log.d("SERVICE", "Message not from OLA.");
                             }
@@ -98,6 +103,11 @@ public class IncomingSmsReceiver extends BroadcastReceiver {
             String json = "";
 
             JSONObject jsonObject = new JSONObject();
+            jsonObject.put("pickup_lat", requestModel.Lattitude);
+            jsonObject.put("pickup_lng", requestModel.Longitude);
+            jsonObject.put("category", requestModel.Type);
+            jsonObject.put("pickup_mode", "Now");
+            jsonObject.put("counter", requestModel.Counter);
 
             json = jsonObject.toString();
 
