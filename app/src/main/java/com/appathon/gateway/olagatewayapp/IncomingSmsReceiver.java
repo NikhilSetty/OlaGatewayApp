@@ -61,9 +61,9 @@ public class IncomingSmsReceiver extends BroadcastReceiver {
 
                             if (items.get(0).equals("OLA")) {
                                 RequestModel request = new RequestModel();
-                                request.AppAuthCode = items.get(3);
                                 request.Lattitude = items.get(1);
                                 request.Longitude = items.get(2);
+                                request.AppAuthCode = items.get(3);
                                 request.Type = items.get(4);
                                 request.Destination = items.get(5);
                                 request.Counter = items.get(6);
